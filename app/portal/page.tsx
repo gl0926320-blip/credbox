@@ -633,7 +633,7 @@ export default async function PortalPage() {
         ?.telefone_suporte ??
         portalConfig
           ?.whatsapp_suporte ??
-        "62994093021"
+        "62994096995"
     );
 
   const supportMessage =
