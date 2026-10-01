@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 import Sidebar from "./Sidebar";
@@ -12,10 +13,12 @@ export default function AppShell({
 }) {
   const pathname = usePathname();
 
+  const [mobileMenuOpen, setMobileMenuOpen] =
+    useState(false);
+
   /*
-   * Portal do cliente e páginas públicas
-   * não carregam Sidebar nem MobileHeader
-   * do painel administrativo.
+   * LOGIN ADMIN + PORTAL DO CLIENTE
+   * não utilizam o layout administrativo.
    */
   const isPublicRoute =
     pathname === "/login" ||
@@ -29,27 +32,39 @@ export default function AppShell({
     );
   }
 
-  /*
-   * Painel administrativo.
-   */
   return (
     <div className="application">
-      <div className="desktop-sidebar-wrapper">
+      {/* SIDEBAR DESKTOP */}
+      <aside className="desktop-sidebar-wrapper">
         <Sidebar />
-      </div>
+      </aside>
 
+      {/* HEADER MOBILE */}
       <MobileHeader
-        onMenuClick={() => {
-          /*
-           * Mantém compatibilidade com
-           * a interface atual do MobileHeader.
-           *
-           * Depois podemos conectar aqui
-           * o drawer/menu mobile do admin.
-           */
-        }}
+        onMenuClick={() =>
+          setMobileMenuOpen(true)
+        }
       />
 
+      {/* MENU MOBILE */}
+      {mobileMenuOpen && (
+        <>
+          <button
+            type="button"
+            className="mobile-sidebar-backdrop"
+            aria-label="Fechar menu"
+            onClick={() =>
+              setMobileMenuOpen(false)
+            }
+          />
+
+          <aside className="mobile-sidebar-wrapper">
+            <Sidebar />
+          </aside>
+        </>
+      )}
+
+      {/* CONTEÚDO */}
       <main className="application-content">
         {children}
       </main>

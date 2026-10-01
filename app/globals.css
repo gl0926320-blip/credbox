@@ -8363,3 +8363,191 @@ strong {
     font-size: 25px;
   }
 }
+
+/* =========================================
+   LAYOUT ADMINISTRATIVO
+========================================= */
+
+:root {
+  --admin-sidebar-width: 208px;
+  --admin-mobile-header-height: 64px;
+}
+
+.application {
+  min-height: 100vh;
+  width: 100%;
+  background: #f5f6fa;
+}
+
+/*
+ * SIDEBAR DESKTOP
+ * Fica completamente separada do conteúdo
+ */
+.desktop-sidebar-wrapper {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: var(--admin-sidebar-width);
+  height: 100vh;
+
+  z-index: 100;
+
+  overflow-y: auto;
+
+  background: #101522;
+}
+
+/*
+ * CONTEÚDO ADMIN
+ *
+ * O margin-left é o que impede
+ * Dashboard, Clientes etc de ficarem
+ * atrás do menu.
+ */
+.application-content {
+  min-height: 100vh;
+
+  margin-left: var(--admin-sidebar-width);
+
+  width: calc(
+    100% - var(--admin-sidebar-width)
+  );
+
+  padding: 0;
+
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+}
+
+/*
+ * Header mobile não aparece no desktop
+ */
+.mobile-header {
+  display: none;
+}
+
+/*
+ * Sidebar mobile
+ */
+.mobile-sidebar-wrapper {
+  display: none;
+}
+
+.mobile-sidebar-backdrop {
+  display: none;
+}
+
+/*
+ * LOGIN E PORTAL CLIENTE
+ */
+.public-application {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================
+   MOBILE / TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .desktop-sidebar-wrapper {
+    display: none;
+  }
+
+  .application-content {
+    width: 100%;
+    margin-left: 0;
+
+    padding-top: var(
+      --admin-mobile-header-height
+    );
+  }
+
+  .mobile-header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: var(
+      --admin-mobile-header-height
+    );
+
+    z-index: 120;
+
+    display: flex;
+  }
+
+  .mobile-sidebar-wrapper {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    z-index: 150;
+
+    display: block;
+
+    width: min(
+      280px,
+      85vw
+    );
+
+    height: 100vh;
+
+    overflow-y: auto;
+
+    background: #101522;
+
+    box-shadow:
+      18px 0 50px
+      rgba(
+        15,
+        23,
+        42,
+        0.22
+      );
+  }
+
+  .mobile-sidebar-backdrop {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 140;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+
+    background:
+      rgba(
+        15,
+        23,
+        42,
+        0.55
+      );
+
+    cursor: pointer;
+  }
+}
+
+/* MOBILE MENOR */
+
+@media (max-width: 600px) {
+  :root {
+    --admin-mobile-header-height: 58px;
+  }
+}
